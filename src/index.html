@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Career Portal</title>
         <script type="text/javascript">
-            if (window === window.top) {
-                location.replace("/careerportal");
+            if (window === window.top && /[a-zA-Z0-9%&]+\/#/.test(location.pathname)) {
+                location.replace("/");
             }
         </script>
         <!-- default font -->
