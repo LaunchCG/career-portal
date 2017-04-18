@@ -5,7 +5,7 @@
     "noDataHeading": "Oh No!",
     "hereLabel": "here.",
     "emailPlaceholder": "email@domain.com",
-    "locationSectionHeading": "Location",
-    "categorySectionHeading": "Category",
+    "locationSectionHeading": "City and State",
+    "categorySectionHeading": "Division and Specialty",
     "jobsLabel": "Vacancies"
 }
