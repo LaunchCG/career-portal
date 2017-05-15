@@ -4,14 +4,18 @@
 // endbower
 
 $white: #FFFFFF;
-$primary: #5198DE;
-$secondary: #ACC72E;
+//$primary: #5198DE;
+$primary: #46474a; // #7e537f; // Grape
+// $secondary: #ACC72E;
+$secondary: #52b5cc; // Sky
 $light-bg: #F4F4F4;
 $dark-bg: #2E2F30;
-$header-bg: $primary;
+//$header-bg: #primary;
+$header-bg: #ee5b2f; // Tangerine
 $sidebar-header-bg: #252728;
 $toggle-active: #fff;
-$cancel: darken($light-bg, 15%);
+// $cancel: darken($light-bg, 15%);
+$cancel: #cecece;
 $error: #da4453;
 
 $font-size: 13px;

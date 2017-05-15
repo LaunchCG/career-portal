@@ -46,7 +46,7 @@
         }
 
         > header {
-            background: $primary;
+            background: $header-bg; //$primary;
             padding: 0.5em 3em 1.3em 1em;
             display: block;
             color: $white;
@@ -76,7 +76,7 @@
 
                     &.category {
                         display: block;
-                        color: lighten($primary, 20%);
+                        color: white; // lighten($primary, 20%);
                         font-size: 1.3em;
                         font-weight: 700;
                         margin-bottom: 1.2em;
@@ -85,7 +85,8 @@
                     &.location,
                     &.separator,
                     &.type {
-                        color: #3D5668;
+                        // color: #3D5668;
+                        color: white;
                     }
                 }
 
@@ -259,8 +260,8 @@
                         }
 
                         &.upload-container {
-                            border: 1px solid $primary;
-                            color: $primary;
+                            border: 1px solid $header-bg; // $primary;
+                            color: $header-bg; // $primary;
                             border-radius: 3px;
                             background: transparent;
                             text-align: center;
