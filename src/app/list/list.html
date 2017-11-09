@@ -1,6 +1,13 @@
 <section class="job-list">
     <!-- LIST HEADER -->
     <h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>
+    <!-- LOADING SPINNER -->
+    <div data-ng-if="list.SearchService.helper.isSearching">
+      <div class="sk-wandering-cubes">
+        <div class="sk-cube"></div>
+        <div class="sk-cube2"></div>
+      </div>
+    </div>
     <!-- JOBS CONTAINER -->
     <div class="cards">
         <!-- JOBS -->
