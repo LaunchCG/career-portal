@@ -58,6 +58,20 @@ section.job-list {
                         }
                     }
 
+                    > .card-division-branch {
+                        display: none;
+
+                        @include desktop() {
+                            display: block;
+                            flex: 1;
+                            color: lighten($dark-bg, 40%);
+                            font-weight: 500;
+                            font-size: 1.1em;
+                            order: 4;
+                            text-align: center;
+                        }
+                    }
+
                     > .card-title-category {
                         display: block;
                         width: 100%;

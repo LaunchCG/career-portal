@@ -14,7 +14,7 @@
         <div class="card-wrapper" data-ng-repeat="job in list.SearchService.currentListData | orderBy:dateLastPublished">
             <a class="card slide-up-item" data-ng-href="#/jobs/{{job.id}}">
                 <!-- TIMESTAMP -->
-                <span class="card-date" data-ng-if="job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{job.dateLastPublished | displayDate}}</span>
+                <!-- <span class="card-date" data-ng-if="job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{job.dateLastPublished | displayDate}}</span> -->
                 <!-- CATEGORY -->
                 <span class="card-title-category">
                     <span class="card-title">{{::job.title}}</span>
@@ -26,6 +26,8 @@
                 </span>
                 <span class="card-separator" data-ng-show="::((job.address.city || job.address.state) && job.employmentType)">|</span>
                 <span class="card-type">{{::job.employmentType}}</span>
+                <!-- Division | branch -->
+                <span class="card-division-branch">{{job.customText3}} | {{job.customText5}}</span>
                 <!-- DESCRIPTION -->
                 <span class="card-description">{{ ::job.publicDescription | stripHtml }}</span>
                 <!-- CTA -->
