@@ -15,7 +15,7 @@ class SearchService {
     }
 
     static get _fields() {
-        return SearchService._.fields || (SearchService._.fields = 'id,title,publishedCategory(id,name),address(city,state),employmentType,dateLastPublished,publicDescription,isOpen,isPublic,isDeleted');
+        return SearchService._.fields || (SearchService._.fields = 'id,title,publishedCategory(id,name),address(city,state),employmentType,dateLastPublished,publicDescription,isOpen,isPublic,isDeleted,customText3,customText5');
     }
 
     static get _sort() {
@@ -84,14 +84,16 @@ class SearchService {
             let scheme = `http${port === 443 ? 's' : ''}`;
             let swimlane = this.configuration.service.swimlane;
 
-            result = this._.publicServiceUrl = `${scheme}://public-rest${swimlane}.bullhornstaffing.com:${port}/rest-services/${corpToken}`;
+            //result = this._.publicServiceUrl = `${scheme}://public-rest${swimlane}.bullhornstaffing.com:${port}/rest-services/${corpToken}`;
+            result = this._.publicServiceUrl = "/wp-json/bh-api/v1";
         }
 
         return result;
     }
 
     get _queryUrl() {
-        return this._.queryUrl || (this._.queryUrl = `${this._publicServiceUrl}/query/JobBoardPost`);
+        return this._.queryUrl || (this._.queryUrl = `${this._publicServiceUrl}/query`);
+        // return this._.queryUrl || (this._.queryUrl = `${this._publicServiceUrl}/query/JobBoardPost`);
     }
 
     get requestParams() {
@@ -241,7 +243,8 @@ class SearchService {
     }
 
     get _searchUrl() {
-        return this._.searchUrl || (this._.searchUrl = `${this._publicServiceUrl}/search/JobOrder`);
+        return this._.searchUrl || (this._.searchUrl = `${this._publicServiceUrl}/search`);
+        // return this._.searchUrl || (this._.searchUrl = `${this._publicServiceUrl}/search/JobOrder`);
     }
 
     getCountByLocation(callback, errorCallback) {
@@ -343,7 +346,6 @@ class SearchService {
         let doneFinding = (jobs) => {
             controller.helper.isSearching = false;
             controller.helper.updateStart();
-
             if (controller.searchParams.reloadAllData) {
                 controller.currentListData = jobs;
             } else {
