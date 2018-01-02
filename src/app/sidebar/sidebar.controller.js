@@ -21,7 +21,7 @@ class CareerPortalSidebarController {
 
         this.SearchService.getJobs(() => {
           this.setFilters();
-          this.setFiltersFromUrl()
+          this.setFiltersFromUrl();
         });
 
         // Set the grid state based on configurations
@@ -35,9 +35,9 @@ class CareerPortalSidebarController {
                 this.SharedData.gridState = 'list-view';
         }
 
-        $scope.$on('$locationChangeSuccess', ($event, old, next) => {
-          this.setFiltersFromUrl()
-        })
+        $scope.$on('$locationChangeSuccess', () => {
+          this.setFiltersFromUrl();
+        });
     }
 
     updateCategoryLimitTo(value) {
@@ -64,41 +64,41 @@ class CareerPortalSidebarController {
       let totalCount = this.SearchService.filterCountsCache;
       let filters = (this.SearchService.searchParams[category].length ? totalCount[category] : activeCount[category]) || [];
       return filters.map(filter => {
-        filter.active = this.hasFilter(category, filter)
-        return filter
-      })
+        filter.active = this.hasFilter(category, filter);
+        return filter;
+      });
     }
 
     setFiltersFromUrl() {
-      if (this.$location.$$path !== '/jobs') return
+      if (this.$location.$$path !== '/jobs') { return; }
       const setFilter = (filterType, value) => {
-        let filterId = value.replace(/[^\w\-:\/]/gi, '').toLowerCase()
-        let filter = this.SearchService.filterCountsCache[filterType].find(filt => filt.id === filterId)
+        let filterId = value.replace(/[^\w\-:\/]/gi, '').toLowerCase();
+        let filter = this.SearchService.filterCountsCache[filterType].find(filt => filt.id === filterId);
         if (filter && !this.hasFilter(filterType, filter)) {
-          this.SearchService.searchParams[filterType].push(filter)
+          this.SearchService.searchParams[filterType].push(filter);
         }
-      }
+      };
       Object.entries(this.$location.$$search).forEach(entry => {
-        let filterType = entry[0]
-        let value = entry[1]
+        let filterType = entry[0];
+        let value = entry[1];
         if (value instanceof Array) {
           value.forEach(v => {
-            setFilter(filterType, v)
-          })
+            setFilter(filterType, v);
+          });
         } else {
-          setFilter(filterType, value)
+          setFilter(filterType, value);
         }
-      })
-      this.searchJobs()
+      });
+      this.searchJobs();
     }
 
     setFilters() {
-      this.industries = this.getFilterCountByCategory('industries')
-      this.categories = this.getFilterCountByCategory('categories')
-      this.specialties = this.getFilterCountByCategory('specialties')
-      this.cities = this.getFilterCountByCategory('cities')
-      this.states = this.getFilterCountByCategory('states')
-      this.employmentTypes = this.getFilterCountByCategory('employmentTypes')
+      this.industries = this.getFilterCountByCategory('industries');
+      this.categories = this.getFilterCountByCategory('categories');
+      this.specialties = this.getFilterCountByCategory('specialties');
+      this.cities = this.getFilterCountByCategory('cities');
+      this.states = this.getFilterCountByCategory('states');
+      this.employmentTypes = this.getFilterCountByCategory('employmentTypes');
     }
 
     updateCountsByIntersection(oldCounts, newCounts, getID, getLabel) {
@@ -139,18 +139,6 @@ class CareerPortalSidebarController {
         });
     }
 
-    updateFilterCounts() {
-        let controller = this;
-    }
-
-    updateFilterCountsAnonymous() {
-        let controller = this;
-
-        return function () {
-            controller.updateFilterCounts();
-        };
-    }
-
     switchViewStyle(type) {
         this.SharedData.gridState = type + '-view';
     }
@@ -158,7 +146,7 @@ class CareerPortalSidebarController {
     searchJobs() {
       this.SearchService.updateCurrentData(() => {
         this.setFilters();
-      })
+      });
     }
 
     clearSearchParamsAndLoadData(param) {
@@ -172,7 +160,7 @@ class CareerPortalSidebarController {
         }
     }
 
-    searchOnDelay(value) {
+    searchOnDelay() {
         if (this.searchTimeout) {
             this.$timeout.cancel(this.searchTimeout);
         }

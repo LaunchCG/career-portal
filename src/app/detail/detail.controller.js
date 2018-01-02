@@ -30,7 +30,7 @@ class JobDetailController {
         this.SharedData.lastViewedJob = {
           path: this.$location.url(),
           title: this.job.title
-        }
+        };
 
         // Listen for ModalSuccess
         $rootScope.$on('ModalSuccess', angular.bind(this, function () {
@@ -88,11 +88,10 @@ class JobDetailController {
     }
 
     loadJobsWithCategory(category) {
-      // TODO Allow easy returning
       this.SearchService.helper.clearSearchParams();
       this.$location.path('/jobs').search({
         categories: category.name
-      })
+      });
       // this.SearchService.helper.emptyCurrentDataList();
       // this.SearchService.helper.resetStartAndTotal();
       // this.SearchService.helper.clearSearchParams();

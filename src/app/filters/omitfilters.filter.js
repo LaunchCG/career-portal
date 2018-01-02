@@ -5,9 +5,11 @@ class OmitFilters {
                 return collection;
             }
             // If filtering in a category show the entire category to allow additional values
-            if (params.length) return collection;
+            if (params.length) {
+              return collection;
+            }
             // If not filtering, remove any filters with 0 results
-            return collection.filter(fValue => fValue.idCount)
+            return collection.filter(fValue => fValue.idCount);
         };
     }
 }

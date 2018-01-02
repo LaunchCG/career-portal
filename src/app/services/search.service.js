@@ -106,13 +106,13 @@ class SearchService {
         let result = this._.publicServiceUrl;
 
         if (!result) {
-            let corpToken = this.configuration.service.corpToken;
-            let port = parseInt(this.configuration.service.port) || 443;
-            let scheme = `http${port === 443 ? 's' : ''}`;
-            let swimlane = this.configuration.service.swimlane;
+            // let corpToken = this.configuration.service.corpToken;
+            // let port = parseInt(this.configuration.service.port) || 443;
+            // let scheme = `http${port === 443 ? 's' : ''}`;
+            // let swimlane = this.configuration.service.swimlane;
 
             //result = this._.publicServiceUrl = `${scheme}://public-rest${swimlane}.bullhornstaffing.com:${port}/rest-services/${corpToken}`;
-            result = this._.publicServiceUrl = "/wp-json/bh-api/v1";
+            result = this._.publicServiceUrl = '/wp-json/bh-api/v1';
         }
 
         return result;
@@ -288,7 +288,7 @@ class SearchService {
                               } else {
                                   first = false;
                               }
-                              let state = this.searchParams.employmentTypes[j];
+                              let employmentType = this.searchParams.employmentTypes[j];
                               fragment += 'employmentType' + equals + delimiter + employmentType;
                           }
                           return fragment + ')';
@@ -453,8 +453,8 @@ class SearchService {
         errorCallback = errorCallback || function () {
             };
 
-        let totalRecords = [];
-        let start = 0;
+        // let totalRecords = [];
+        // let start = 0;
         callback([]);
         // let controller = this;
         // controller.
@@ -519,8 +519,8 @@ class SearchService {
           cities: job.address.city,
           states: job.address.state,
           employmentTypes: job.employmentType
-        }
-      }
+        };
+      };
       const defaultFilterCounts = {
         categories: [],
         specialties: [],
@@ -547,12 +547,14 @@ class SearchService {
         let includeInResults = activeFilterCategories.every(filterCategory => {
           let filterId = jobFilters[filterCategory] ? jobFilters[filterCategory].replace(/[^\w\-:\/]/gi, '').toLowerCase() || 'other' : 'other';
           return activeFilters[filterCategory].includes(filterId);
-        })
+        });
         if (this.searchParams.textSearch) {
-          includeInResults = includeInResults && job.title.toLowerCase().indexOf(this.searchParams.textSearch) !== -1
+          includeInResults = includeInResults && job.title.toLowerCase().indexOf(this.searchParams.textSearch) !== -1;
         }
         // Not included, exit before counting filters
-        if (!includeInResults) return false;
+        if (!includeInResults) {
+          return false;
+        }
 
         // Add each filter category value to filter list/count
         filterCategories.forEach(filterCategory => {
@@ -567,12 +569,12 @@ class SearchService {
               idCount: 1
             });
           }
-        })
+        });
         return includeInResults;
       });
 
       if (updateFilterCountCache) {
-        this.filterCountsCache = filterCounts
+        this.filterCountsCache = filterCounts;
       }
 
       this.filterCounts = filterCounts;
@@ -604,7 +606,7 @@ class SearchService {
           return onComplete();
         }
       };
-      this.recursiveSearchForJobs(onData, 0, this._API_MAX_COUNT)
+      this.recursiveSearchForJobs(onData, 0, this._API_MAX_COUNT);
     }
 
     findJobs() {
