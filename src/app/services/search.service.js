@@ -306,21 +306,21 @@ class SearchService {
                 query: (isSearch, additionalQuery, fields) => {
                     let query = `(isOpen${isSearch ? ':1' : '=true'})`;
 
-                    if (additionalQuery) {
-                        query += ` AND (${additionalQuery})`;
-                    }
-
-                    if (isSearch) {
-                        query += this.requestParams.text();
-                    }
-
-                    query += this.requestParams.publishedCategory(isSearch, fields);
-                    query += this.requestParams.location(isSearch, fields);
-                    query += this.requestParams.division(isSearch, fields);
-                    query += this.requestParams.specialty(isSearch, fields);
-                    query += this.requestParams.state(isSearch, fields);
-                    query += this.requestParams.city(isSearch, fields);
-                    query += this.requestParams.employmentType(isSearch, fields);
+                    // if (additionalQuery) {
+                    //     query += ` AND (${additionalQuery})`;
+                    // }
+                    //
+                    // if (isSearch) {
+                    //     query += this.requestParams.text();
+                    // }
+                    //
+                    // query += this.requestParams.publishedCategory(isSearch, fields);
+                    // query += this.requestParams.location(isSearch, fields);
+                    // query += this.requestParams.division(isSearch, fields);
+                    // query += this.requestParams.specialty(isSearch, fields);
+                    // query += this.requestParams.state(isSearch, fields);
+                    // query += this.requestParams.city(isSearch, fields);
+                    // query += this.requestParams.employmentType(isSearch, fields);
 
                     return query;
                 },
@@ -596,12 +596,7 @@ class SearchService {
         if (results.data.length) {
           allJobs = allJobs.concat(results.data);
           if (results.start + results.count < results.total) {
-            // There are more results, fetch them
-            this.$http({
-              method: 'GET',
-              url: '/assets/r2.json'
-            }).success(onData).error(err => {})
-            // this.recursiveSearchForJobs(onData, results.start + results.count, this._API_MAX_COUNT);
+            this.recursiveSearchForJobs(onData, results.start + results.count, this._API_MAX_COUNT);
           } else {
             return onComplete();
           }
@@ -609,11 +604,7 @@ class SearchService {
           return onComplete();
         }
       };
-      this.$http({
-        method: 'GET',
-        url: '/assets/r1.json'
-      }).success(onData).error(err => {})
-      // this.recursiveSearchForJobs(onData, 0, this._API_MAX_COUNT)
+      this.recursiveSearchForJobs(onData, 0, this._API_MAX_COUNT)
     }
 
     findJobs() {
