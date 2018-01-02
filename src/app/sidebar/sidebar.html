@@ -39,8 +39,8 @@
             </div>
 
             <!-- Added 'track by' clause to prevent excessive flickering when updating the sidebar's category list - R.D. -->
-            <div class="filter-item slide-down-item" data-ng-repeat="industry in filteredIndustries = (sidebar.industries | omitFilters:'industry':sidebar.SearchService.searchParams.industries) | orderBy:['label','-idCount'] | limitTo:sidebar.industryLimitTo track by industry.id">
-                <input type="checkbox" id="{{::industry.id}}" data-ng-checked="sidebar.hasFilter('industries', industry)" data-ng-click="sidebar.toggleFilterByType('industries', industry)">
+            <div class="filter-item slide-down-item" data-ng-repeat="industry in filteredIndustries = (sidebar.industries | omitFilters:'industry':sidebar.SearchService.searchParams.industries) | orderBy:['-active', 'label','-idCount'] | limitTo:sidebar.industryLimitTo track by industry.id">
+                <input type="checkbox" id="{{::industry.id}}" data-ng-checked="industry.active" data-ng-click="sidebar.toggleFilterByType('industries', industry)">
                 <label for="{{::industry.id}}">{{::industry.label}}</label>
                 <!-- <span>{{industry.idCount}}</span> -->
             </div>
@@ -63,8 +63,8 @@
             </div>
 
             <!-- Added 'track by' clause to prevent excessive flickering when updating the sidebar's category list - R.D. -->
-            <div class="filter-item slide-down-item" data-ng-repeat="category in filteredCategories = (sidebar.categories | omitFilters:'category':sidebar.SearchService.searchParams.categories) | orderBy:['label','-idCount'] | limitTo:sidebar.categoryLimitTo track by category.id">
-                <input type="checkbox" id="{{::category.id}}" data-ng-checked="sidebar.hasFilter('categories', category)" data-ng-click="sidebar.toggleFilterByType('categories', category)">
+            <div class="filter-item slide-down-item" data-ng-repeat="category in filteredCategories = (sidebar.categories | omitFilters:'category':sidebar.SearchService.searchParams.categories) | orderBy:['-active', 'label','-idCount'] | limitTo:sidebar.categoryLimitTo track by category.id">
+                <input type="checkbox" id="{{::category.id}}" data-ng-checked="category.active" data-ng-click="sidebar.toggleFilterByType('categories', category)">
                 <label for="{{::category.id}}">{{::category.label}}</label>
                 <!-- <span>{{category.idCount}}</span> -->
             </div>
@@ -87,8 +87,8 @@
             </div>
 
             <!-- Added 'track by' clause to prevent excessive flickering when updating the sidebar's specialty list - R.D. -->
-            <div class="filter-item slide-down-item" data-ng-repeat="specialty in filteredSpecialities = (sidebar.specialties | omitFilters:'specialty':sidebar.SearchService.searchParams.specialties) | orderBy:['label','-idCount'] | limitTo:sidebar.specialtyLimitTo track by specialty.id">
-                <input type="checkbox" id="{{::specialty.id}}" data-ng-checked="sidebar.hasFilter('specialties', specialty)" data-ng-click="sidebar.toggleFilterByType('specialties', specialty)">
+            <div class="filter-item slide-down-item" data-ng-repeat="specialty in filteredSpecialities = (sidebar.specialties | omitFilters:'specialty':sidebar.SearchService.searchParams.specialties) | orderBy:['-active', 'label','-idCount'] | limitTo:sidebar.specialtyLimitTo track by specialty.id">
+                <input type="checkbox" id="{{::specialty.id}}" data-ng-checked="specialty.active" data-ng-click="sidebar.toggleFilterByType('specialties', specialty)">
                 <label for="{{::specialty.id}}">{{::specialty.label}}</label>
                 <!-- <span>{{specialty.idCount}}</span> -->
             </div>
@@ -111,8 +111,8 @@
             </div>
 
             <!-- Added 'track by' clause to prevent excessive flickering when updating the sidebar's location list - R.D. -->
-            <div class="filter-item slide-down-item" data-ng-repeat="state in filteredStates = (sidebar.states | omitFilters:'state':sidebar.SearchService.searchParams.states) | orderBy:['label','-idCount'] | limitTo:sidebar.stateLimitTo track by state.id">
-                <input type="checkbox" id="{{::state.id}}" data-ng-checked="sidebar.hasFilter('states', state)" data-ng-click="sidebar.toggleFilterByType('states', state)">
+            <div class="filter-item slide-down-item" data-ng-repeat="state in filteredStates = (sidebar.states | omitFilters:'state':sidebar.SearchService.searchParams.states) | orderBy:['-active', 'label','-idCount'] | limitTo:sidebar.stateLimitTo track by state.id">
+                <input type="checkbox" id="{{::state.id}}" data-ng-checked="state.active" data-ng-click="sidebar.toggleFilterByType('states', state)">
                 <label for="{{::state.id}}">{{::state.label}}</label>
                 <!-- <span>{{state.idCount}}</span> -->
             </div>
@@ -134,8 +134,8 @@
             </div>
 
             <!-- Added 'track by' clause to prevent excessive flickering when updating the sidebar's location list - R.D. -->
-            <div class="filter-item slide-down-item" data-ng-repeat="city in filteredCities = (sidebar.cities | omitFilters:'city':sidebar.SearchService.searchParams.cities) | orderBy:['label','-idCount'] | limitTo:sidebar.cityLimitTo track by city.id">
-                <input type="checkbox" id="{{::city.id}}" data-ng-checked="sidebar.hasFilter('cities', city)" data-ng-click="sidebar.toggleFilterByType('cities', city)">
+            <div class="filter-item slide-down-item" data-ng-repeat="city in filteredCities = (sidebar.cities | omitFilters:'city':sidebar.SearchService.searchParams.cities) | orderBy:['-active', 'label','-idCount'] | limitTo:sidebar.cityLimitTo track by city.id">
+                <input type="checkbox" id="{{::city.id}}" data-ng-checked="city.active" data-ng-click="sidebar.toggleFilterByType('cities', city)">
                 <label for="{{::city.id}}">{{::city.label}}</label>
                 <!-- <span>{{city.idCount}}</span> -->
             </div>
@@ -157,8 +157,8 @@
             </div>
 
             <!-- Added 'track by' clause to prevent excessive flickering when updating the sidebar's location list - R.D. -->
-            <div class="filter-item slide-down-item" data-ng-repeat="employmentType in filteredEmploymentTypes = (sidebar.employmentTypes | omitFilters:'employmentType':sidebar.SearchService.searchParams.employmentTypes) | orderBy:['label','-idCount'] | limitTo:sidebar.employmentTypeLimitTo track by employmentType.id">
-                <input type="checkbox" id="{{::employmentType.id}}" data-ng-checked="sidebar.hasFilter('employmentTypes', employmentType)" data-ng-click="sidebar.toggleFilterByType('employmentTypes', employmentType)">
+            <div class="filter-item slide-down-item" data-ng-repeat="employmentType in filteredEmploymentTypes = (sidebar.employmentTypes | omitFilters:'employmentType':sidebar.SearchService.searchParams.employmentTypes) | orderBy:['-active', 'label','-idCount'] | limitTo:sidebar.employmentTypeLimitTo track by employmentType.id">
+                <input type="checkbox" id="{{::employmentType.id}}" data-ng-checked="employmentType.active" data-ng-click="sidebar.toggleFilterByType('employmentTypes', employmentType)">
                 <label for="{{::employmentType.id}}">{{::employmentType.label}}</label>
                 <!-- <span>{{employmentType.idCount}}</span> -->
             </div>

@@ -1,11 +1,23 @@
 section.job-list {
     padding: 1.5em;
 
-    > h4 {
-        color: darken($light-bg, 15%);
-        font-size: 1.3em;
-        font-weight: 500;
-        margin: 0 0 1em;
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 36px;
+
+      > h4 {
+          color: darken($light-bg, 15%);
+          font-size: 1.3em;
+          font-weight: 500;
+          margin: 0;
+      }
+      > h5 {
+          color: darken($light-bg, 35%);
+          font-size: 1em;
+          margin: 0;
+      }
     }
 
     > p.load-more-data {

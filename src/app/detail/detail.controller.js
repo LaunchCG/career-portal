@@ -27,6 +27,11 @@ class JobDetailController {
         // Check session storage for already applied jobs
         this.checkSessionStorage();
 
+        this.SharedData.lastViewedJob = {
+          path: this.$location.url(),
+          title: this.job.title
+        }
+
         // Listen for ModalSuccess
         $rootScope.$on('ModalSuccess', angular.bind(this, function () {
             this.checkSessionStorage();
@@ -85,7 +90,6 @@ class JobDetailController {
     loadJobsWithCategory(category) {
       // TODO Allow easy returning
       this.SearchService.helper.clearSearchParams();
-      this.SharedData.lastJobPath = this.$location.url;
       this.$location.path('/jobs').search({
         categories: category.name
       })

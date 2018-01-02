@@ -62,7 +62,11 @@ class CareerPortalSidebarController {
     getFilterCountByCategory (category) {
       let activeCount = this.SearchService.filterCounts;
       let totalCount = this.SearchService.filterCountsCache;
-      return (this.SearchService.searchParams[category].length ? totalCount[category] : activeCount[category]) || [];
+      let filters = (this.SearchService.searchParams[category].length ? totalCount[category] : activeCount[category]) || [];
+      return filters.map(filter => {
+        filter.active = this.hasFilter(category, filter)
+        return filter
+      })
     }
 
     setFiltersFromUrl() {

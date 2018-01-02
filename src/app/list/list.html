@@ -1,6 +1,9 @@
 <section class="job-list">
     <!-- LIST HEADER -->
-    <h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>
+    <div class="list-header">
+      <h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>
+      <h5 data-ng-if="list.SharedData.lastViewedJob">{{'list.lastJobHeading' | i18n}}: <a data-ng-href="{{list.SharedData.lastViewedJob.path}}">{{::list.SharedData.lastViewedJob.title}}</a></h5>
+    </div>
     <!-- LOADING SPINNER -->
     <div data-ng-if="list.SearchService.helper.isSearching">
       <div class="sk-wandering-cubes">
