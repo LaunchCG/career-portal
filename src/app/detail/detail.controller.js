@@ -82,13 +82,19 @@ class JobDetailController {
         }
     }
 
-    loadJobsWithCategory(categoryID) {
-        this.SearchService.helper.emptyCurrentDataList();
-        this.SearchService.helper.resetStartAndTotal();
-        this.SearchService.helper.clearSearchParams();
-        this.SearchService.searchParams.category.push(categoryID);
-        this.SearchService.findJobs();
-        this.$location.path('/jobs');
+    loadJobsWithCategory(category) {
+      // TODO Allow easy returning
+      this.SearchService.helper.clearSearchParams();
+      this.SharedData.lastJobPath = this.$location.url;
+      this.$location.path('/jobs').search({
+        categories: category.name
+      })
+      // this.SearchService.helper.emptyCurrentDataList();
+      // this.SearchService.helper.resetStartAndTotal();
+      // this.SearchService.helper.clearSearchParams();
+      // this.SearchService.searchParams.category.push(categoryID);
+      // // this.SearchService.findJobs();
+      // this.$location.path('/jobs');
     }
 }
 

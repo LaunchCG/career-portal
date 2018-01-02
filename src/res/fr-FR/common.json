@@ -9,8 +9,8 @@
     "stateSectionHeading": "état",
     "citySectionHeading": "ville",
     "divisionSectionHeading": "division",
-    "branchSectionHeading": "département",
+    "specialtySectionHeading": "département",
     "employmentTypeSectionHeading": "type d'emploi",
-    "categorySectionHeading": "division et specialité",
+    "categorySectionHeading": "catégorie",
     "jobsLabel": "connexes"
 }

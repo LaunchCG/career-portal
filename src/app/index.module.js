@@ -33,6 +33,9 @@ angular.module('CareerPortal', ['ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router
     .constant('APPLIED_JOBS_KEY', 'APPLIED_JOBS_KEY')
     .config(routerConfig)
     .config(localeConfig)
+    .config(function($locationProvider) {
+      $locationProvider.html5Mode(true);
+    })
     .directive('main', () => new Main())
     .directive('careerPortalSidebar', () => new CareerPortalSidebar())
     .directive('careerPortalHeader', () => new CareerPortalHeader())

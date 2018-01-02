@@ -8,9 +8,9 @@
     "locationSectionHeading": "City and State",
     "stateSectionHeading": "State",
     "citySectionHeading": "City",
-    "divisionSectionHeading": "Division",
-    "branchSectionHeading": "Branch",
+    "industrySectionHeading": "Industry",
+    "specialtySectionHeading": "Specialty",
     "employmentTypeSectionHeading": "Employment Type",
-    "categorySectionHeading": "Division and Specialty",
+    "categorySectionHeading": "Category",
     "jobsLabel": "Vacancies"
 }

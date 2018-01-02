@@ -10,12 +10,19 @@ class CareerPortalSidebarController {
         this.SearchService = SearchService;
         this.configuration = configuration || {};
 
-        this.locationLimitTo = 8;
-        this.categoryLimitTo = 8;
+        const LIMIT = 8;
 
-        this.SearchService.findJobs();
-        this.SearchService.getCountByLocation(this.setLocations());
-        this.SearchService.getCountByCategory(this.setCategories());
+        this.categoryLimitTo = LIMIT;
+        this.industryLimitTo = LIMIT;
+        this.stateLimitTo = LIMIT;
+        this.cityLimitTo = LIMIT;
+        this.specialtyLimitTo = LIMIT;
+        this.employmentTypeLimitTo = LIMIT;
+
+        this.SearchService.getJobs(() => {
+          this.setFilters();
+          this.setFiltersFromUrl()
+        });
 
         // Set the grid state based on configurations
         switch (this.configuration.defaultGridState) {
@@ -28,41 +35,66 @@ class CareerPortalSidebarController {
                 this.SharedData.gridState = 'list-view';
         }
 
-        $scope.$watchCollection(angular.bind(this, function () {
-            return this.SearchService.searchParams.category;
-        }), this.updateFilterCountsAnonymous());
-
-        $scope.$watchCollection(angular.bind(this, function () {
-            return this.SearchService.searchParams.location;
-        }), this.updateFilterCountsAnonymous());
-    }
-
-    updateLocationLimitTo(value) {
-        this.locationLimitTo = value;
+        $scope.$on('$locationChangeSuccess', ($event, old, next) => {
+          this.setFiltersFromUrl()
+        })
     }
 
     updateCategoryLimitTo(value) {
         this.categoryLimitTo = value;
     }
-
-    setLocations() {
-        let controller = this;
-
-        return function (locations) {
-            controller.locations = locations.filter(function (location) {
-                return location && location.address && location.address.city && location.address.state;
-            });
-        };
+    updateIndustryLimitTo(value) {
+        this.industryLimitTo = value;
+    }
+    updateSpecialtyLimitTo(value) {
+        this.specialtyLimitTo = value;
+    }
+    updateStateLimitTo(value) {
+        this.stateLimitTo = value;
+    }
+    updateCityLimitTo(value) {
+        this.cityLimitTo = value;
+    }
+    updateEmploymentTypeLimitTo(value) {
+        this.employmentTypeLimitTo = value;
     }
 
-    setCategories() {
-        let controller = this;
+    getFilterCountByCategory (category) {
+      let activeCount = this.SearchService.filterCounts;
+      let totalCount = this.SearchService.filterCountsCache;
+      return (this.SearchService.searchParams[category].length ? totalCount[category] : activeCount[category]) || [];
+    }
 
-        return function (categories) {
-            controller.categories = categories.filter(function (category) {
-                return category && category.publishedCategory && category.publishedCategory.name && category.publishedCategory.name.length;
-            });
-        };
+    setFiltersFromUrl() {
+      if (this.$location.$$path !== '/jobs') return
+      const setFilter = (filterType, value) => {
+        let filterId = value.replace(/[^\w\-:\/]/gi, '').toLowerCase()
+        let filter = this.SearchService.filterCountsCache[filterType].find(filt => filt.id === filterId)
+        if (filter && !this.hasFilter(filterType, filter)) {
+          this.SearchService.searchParams[filterType].push(filter)
+        }
+      }
+      Object.entries(this.$location.$$search).forEach(entry => {
+        let filterType = entry[0]
+        let value = entry[1]
+        if (value instanceof Array) {
+          value.forEach(v => {
+            setFilter(filterType, v)
+          })
+        } else {
+          setFilter(filterType, value)
+        }
+      })
+      this.searchJobs()
+    }
+
+    setFilters() {
+      this.industries = this.getFilterCountByCategory('industries')
+      this.categories = this.getFilterCountByCategory('categories')
+      this.specialties = this.getFilterCountByCategory('specialties')
+      this.cities = this.getFilterCountByCategory('cities')
+      this.states = this.getFilterCountByCategory('states')
+      this.employmentTypes = this.getFilterCountByCategory('employmentTypes')
     }
 
     updateCountsByIntersection(oldCounts, newCounts, getID, getLabel) {
@@ -105,24 +137,6 @@ class CareerPortalSidebarController {
 
     updateFilterCounts() {
         let controller = this;
-
-        if (this.locations) {
-            this.SearchService.getCountByLocation(function (locations) {
-                controller.updateCountsByIntersection(controller.locations, locations, function () {
-                    return this.address.city + ',' + this.address.state;
-                });
-            });
-        }
-
-        if (this.categories) {
-            this.SearchService.getCountByCategory(function (categories) {
-                controller.updateCountsByIntersection(controller.categories, categories, function () {
-                    return !this.publishedCategory ? null : this.publishedCategory.id;
-                }, function () {
-                    return !this.publishedCategory ? null : this.publishedCategory.name;
-                });
-            });
-        }
     }
 
     updateFilterCountsAnonymous() {
@@ -138,17 +152,14 @@ class CareerPortalSidebarController {
     }
 
     searchJobs() {
-        this.SearchService.searchParams.reloadAllData = true;
-        this.SearchService.findJobs();
-
-        this.updateFilterCounts();
+      this.SearchService.updateCurrentData(() => {
+        this.setFilters();
+      })
     }
 
     clearSearchParamsAndLoadData(param) {
         this.SearchService.helper.clearSearchParams(param);
-        this.SearchService.searchParams.reloadAllData = true;
-        this.SearchService.findJobs();
-        this.updateFilterCounts();
+        this.searchJobs();
     }
 
     goBack() {
@@ -157,45 +168,32 @@ class CareerPortalSidebarController {
         }
     }
 
-    searchOnDelay() {
+    searchOnDelay(value) {
         if (this.searchTimeout) {
             this.$timeout.cancel(this.searchTimeout);
         }
 
         this.searchTimeout = this.$timeout(angular.bind(this, function () {
             this.searchJobs();
-        }), 250);
+        }), 400);
     }
 
-    addOrRemoveLocation(location) {
-        let key = location.address.city + '|' + location.address.state;
-        if (!this.hasLocationFilter(location)) {
-            this.SearchService.searchParams.location.push(key);
-        } else {
-            let index = this.SearchService.searchParams.location.indexOf(key);
-            this.SearchService.searchParams.location.splice(index, 1);
-        }
-        this.searchJobs();
+    toggleFilterByType(type, filter) {
+      let index = this.getFilterIndexByType(type, filter.id);
+      if (index === -1) {
+        this.SearchService.searchParams[type].push(filter);
+      } else {
+        this.SearchService.searchParams[type].splice(index, 1);
+      }
+      this.searchJobs();
     }
 
-    addOrRemoveCategory(category) {
-        let key = category.publishedCategory.id;
-        if (!this.hasCategoryFilter(category)) {
-            this.SearchService.searchParams.category.push(key);
-        } else {
-            let index = this.SearchService.searchParams.category.indexOf(key);
-            this.SearchService.searchParams.category.splice(index, 1);
-        }
-        this.searchJobs();
+    hasFilter(type, filter) {
+      return this.getFilterIndexByType(type, filter.id) !== -1;
     }
 
-    hasLocationFilter(location) {
-        let key = location.address.city + '|' + location.address.state;
-        return this.SearchService.searchParams.location.indexOf(key) !== -1;
-    }
-
-    hasCategoryFilter(category) {
-        return this.SearchService.searchParams.category.indexOf(category.publishedCategory.id) !== -1;
+    getFilterIndexByType(type, filterId) {
+      return this.SearchService.searchParams[type].findIndex(param => param.id === filterId);
     }
 }
 

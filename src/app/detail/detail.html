@@ -57,14 +57,14 @@
             <h5>{{'detail.relatedLabel' | i18n}} {{::detail.job.publishedCategory.name}} {{'common.jobsLabel' | i18n}}</h5>
             <!-- JOBS -->
             <div class="related-job" data-ng-repeat="job in detail.relatedJobs">
-                <a data-ng-href="#/jobs/{{::job.id}}">{{::job.title}}</a>
+                <a data-ng-href="/jobs/{{::job.id}}">{{::job.title}}</a>
                 <span class="location">{{::job.address.city}}<span data-ng-if="::(job.address.city && job.address.state)">, </span>{{::job.address.state}}</span>
             </div>
         </div>
         <!-- BREAK -->
         <hr/>
         <!-- VIEW ALL JOBS IN CATEGORY LINK -->
-        <a href data-ng-click="detail.loadJobsWithCategory(detail.job.publishedCategory.id)" class="category-filter">{{'detail.viewAllJobsLabel' | i18n}}<i class="bhi-arrow-right"></i></a>
+        <a href data-ng-click="detail.loadJobsWithCategory(detail.job.publishedCategory)" class="category-filter">{{'detail.viewAllJobsLabel' | i18n}}<i class="bhi-arrow-right"></i></a>
     </div>
     <!-- DESCRIPTION CARD -->
     <div class="card description" data-ng-if="detail.job.isPublic && !detail.job.isDeleted && detail.job.isOpen">
@@ -103,7 +103,7 @@
         <!-- OTHER JOBS -->
         <p>
             {{'detail.jobClosedOtherJobsLabel' | i18n}}
-            <a href data-ng-click="detail.loadJobsWithCategory(detail.job.publishedCategory.id)">{{'common.hereLabel' | i18n}}</a>
+            <a href data-ng-click="detail.loadJobsWithCategory(detail.job.publishedCategory)">{{'common.hereLabel' | i18n}}</a>
         </p>
     </div>
 </section>
