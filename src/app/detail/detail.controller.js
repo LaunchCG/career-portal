@@ -27,6 +27,11 @@ class JobDetailController {
         // Check session storage for already applied jobs
         this.checkSessionStorage();
 
+        this.SharedData.lastViewedJob = {
+          path: this.$location.absUrl(),
+          title: this.job.title
+        };
+
         // Listen for ModalSuccess
         $rootScope.$on('ModalSuccess', angular.bind(this, function () {
             this.checkSessionStorage();
@@ -82,13 +87,17 @@ class JobDetailController {
         }
     }
 
-    loadJobsWithCategory(categoryID) {
-        this.SearchService.helper.emptyCurrentDataList();
-        this.SearchService.helper.resetStartAndTotal();
-        this.SearchService.helper.clearSearchParams();
-        this.SearchService.searchParams.category.push(categoryID);
-        this.SearchService.findJobs();
-        this.$location.path('/jobs');
+    loadJobsWithCategory(category) {
+      this.SearchService.helper.clearSearchParams();
+      this.$location.path('/jobs').search({
+        categories: category.name
+      });
+      // this.SearchService.helper.emptyCurrentDataList();
+      // this.SearchService.helper.resetStartAndTotal();
+      // this.SearchService.helper.clearSearchParams();
+      // this.SearchService.searchParams.category.push(categoryID);
+      // // this.SearchService.findJobs();
+      // this.$location.path('/jobs');
     }
 }
 

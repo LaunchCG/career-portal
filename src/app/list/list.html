@@ -1,13 +1,23 @@
 <section class="job-list">
     <!-- LIST HEADER -->
-    <h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>
+    <div class="list-header">
+      <h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>
+      <h5 data-ng-if="list.SharedData.lastViewedJob">{{'list.lastJobHeading' | i18n}}: <a data-ng-href="{{list.SharedData.lastViewedJob.path}}">{{::list.SharedData.lastViewedJob.title}}</a></h5>
+    </div>
+    <!-- LOADING SPINNER -->
+    <div data-ng-if="list.SearchService.helper.isSearching">
+      <div class="sk-wandering-cubes">
+        <div class="sk-cube"></div>
+        <div class="sk-cube2"></div>
+      </div>
+    </div>
     <!-- JOBS CONTAINER -->
     <div class="cards">
         <!-- JOBS -->
         <div class="card-wrapper" data-ng-repeat="job in list.SearchService.currentListData | orderBy:dateLastPublished">
-            <a class="card slide-up-item" data-ng-href="#/jobs/{{job.id}}">
+            <a class="card slide-up-item" data-ng-href="jobs/{{job.id}}">
                 <!-- TIMESTAMP -->
-                <span class="card-date" data-ng-if="job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{job.dateLastPublished | displayDate}}</span>
+                <!-- <span class="card-date" data-ng-if="job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{job.dateLastPublished | displayDate}}</span> -->
                 <!-- CATEGORY -->
                 <span class="card-title-category">
                     <span class="card-title">{{::job.title}}</span>
@@ -19,6 +29,8 @@
                 </span>
                 <span class="card-separator" data-ng-show="::((job.address.city || job.address.state) && job.employmentType)">|</span>
                 <span class="card-type">{{::job.employmentType}}</span>
+                <!-- Division | branch -->
+                <span class="card-division-branch">{{job.customText3}} | {{job.customText5}}</span>
                 <!-- DESCRIPTION -->
                 <span class="card-description">{{ ::job.publicDescription | stripHtml }}</span>
                 <!-- CTA -->
@@ -30,12 +42,12 @@
     <div class="no-data-message" data-ng-if="!list.SearchService.helper.isSearching && !list.SearchService.currentListData.length">
         <h2>{{'common.noDataHeading' | i18n}}</h2>
         <h3>{{'list.noDataMessage' | i18n}}</h3>
-        <p data-ng-if="list.SearchService.searchParams.location.length || list.SearchService.searchParams.category.length || list.SearchService.searchParams.textSearch.length">
+        <!-- <p data-ng-if="list.SearchService.searchParams.locations.length || list.SearchService.searchParams.categories.length || list.SearchService.searchParams.industries.length || list.SearchService.searchParams.textSearch.length">
             <a href data-ng-click="list.clearSearchParamsAndLoadData();">{{'list.noDataResolution' | i18n}}</a>
-        </p>
+        </p> -->
     </div>
     <!-- LOAD MORE -->
-    <p class="load-more-data" data-ng-click="list.loadMoreData();" data-ng-show="list.SearchService.helper.hasMore">
+    <!-- <p class="load-more-data" data-ng-click="list.loadMoreData();" data-ng-show="list.SearchService.helper.hasMore">
         {{'list.loadMoreDataLabel' | i18n}}
-    </p>
+    </p> -->
 </section>

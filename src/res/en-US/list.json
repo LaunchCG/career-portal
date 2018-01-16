@@ -1,5 +1,6 @@
 {
     "jobListHeading": "Open Jobs",
+    "lastJobHeading": "Last Viewed Job",
     "loadMoreDataLabel": "Load more...",
     "noDataMessage": "Looks like there are no jobs matching the criteria.",
     "noDataResolution": "Clear the criteria and search again."

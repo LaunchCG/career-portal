@@ -1,6 +1,7 @@
 {
     "jobListHeading": "Postes ouverts",
     "loadMoreDataLabel": "Charger plus ...",
+    "lastJobHeading": "Dernier emploi visité",
     "noDataMessage": "On dirait qu'il n'y a aucun emploi correspondant aux critères .",
     "noDataResolution": "Effacement des critères et de la recherche en cliquant sur"
 }

@@ -6,6 +6,11 @@
     "hereLabel": "here.",
     "emailPlaceholder": "email@domain.com",
     "locationSectionHeading": "City and State",
-    "categorySectionHeading": "Division and Specialty",
+    "stateSectionHeading": "State",
+    "citySectionHeading": "City",
+    "industrySectionHeading": "Industry",
+    "specialtySectionHeading": "Specialty",
+    "employmentTypeSectionHeading": "Employment Type",
+    "categorySectionHeading": "Category",
     "jobsLabel": "Vacancies"
 }
