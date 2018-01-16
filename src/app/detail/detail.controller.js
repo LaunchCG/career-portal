@@ -28,7 +28,7 @@ class JobDetailController {
         this.checkSessionStorage();
 
         this.SharedData.lastViewedJob = {
-          path: this.$location.url(),
+          path: this.$location.absUrl(),
           title: this.job.title
         };
 

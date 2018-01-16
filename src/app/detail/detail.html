@@ -57,7 +57,7 @@
             <h5>{{'detail.relatedLabel' | i18n}} {{::detail.job.publishedCategory.name}} {{'common.jobsLabel' | i18n}}</h5>
             <!-- JOBS -->
             <div class="related-job" data-ng-repeat="job in detail.relatedJobs">
-                <a data-ng-href="/jobs/{{::job.id}}">{{::job.title}}</a>
+                <a data-ng-href="jobs/{{::job.id}}">{{::job.title}}</a>
                 <span class="location">{{::job.address.city}}<span data-ng-if="::(job.address.city && job.address.state)">, </span>{{::job.address.state}}</span>
             </div>
         </div>

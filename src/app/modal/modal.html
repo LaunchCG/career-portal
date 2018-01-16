@@ -11,7 +11,7 @@
                     {{ modal.SearchService.currentDetailData.address.city }}<span data-ng-if="(modal.SearchService.currentDetailData.address.city && modal.SearchService.currentDetailData.address.state)">,&nbsp;</span>{{ modal.SearchService.currentDetailData.address.state }}
                 </span>
                 <!-- SEPERATOR -->
-                <span class="separator" data-ng-show="::((modal.SearchService.currentDetailData.address.city || modal.SearchService.currentDetailData.address.state) && modal.SearchService.currentDetailData.employmentType)">|</span>
+                <span class="separator" data-ng-show="::((modal.SearchService.currentDetailData.address.city || modal.SearchService.currentDetailData.address.state) && modal.SearchService.currentDetailData.employmentType)"> | </span>
                 <!-- TYPE -->
                 <span class="type">{{ ::modal.SearchService.currentDetailData.employmentType }}</span>
                 <!-- CLOSE X -->
